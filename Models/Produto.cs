@@ -9,7 +9,7 @@ namespace MercadoSimples.Models
         public string Nome { get; set; }
         public string Descricao { get; set; }
 
-        public double? Preco { get; set; } = null;
+        public decimal Preco { get; set; }
         public DateTime Validade { get; set; } = DateTime.Now; /*Ela captura o instante exato (data e hora) do relógio do sistema no momento em que a linha de código é executada.*/
 
     }

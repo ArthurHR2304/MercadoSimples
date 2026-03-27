@@ -7,16 +7,17 @@ namespace MercadoSimples.Models
     public class Estoque
     {
         public int Id { get; set; }
-        public int ProdutoId { get; set; } /*Este é o número (ID) do produto. O Entity Framework entende que isso é uma "Chave Estrangeira" (Foreign Key) automaticamente.*/
 
-        // O required força você a preencher com algo 
-        public required Produto Produto { get; set; } = new Produto(); /*Esta é uma "propriedade de navegação". Ela permite que, no código, você faça algo como estoque.Produto.Nome para acessar o nome do produto diretamente pelo objeto de estoque.*/
-        public string NomeEstoque { get; set; }
-        public string Fornecedor { get; set; }
-        public string Categoria { get; set; }
+        // O segredo da Foreign Key:
+        public int ProdutoId { get; set; }
+        public Produto Produto { get; set; } = null!; // Propriedade de navegação
+
+        public string NomeEstoque { get; set; } = string.Empty;
+        public string Fornecedor { get; set; } = string.Empty;
+        public string Categoria { get; set; } = string.Empty;
         public int Quantidade { get; set; }
-        public double? Peso { get; set; } = null; 
-        public double? Custo { get; set; } = null;
-        
+        public decimal? Peso { get; set; } // Dica: use decimal para dinheiro/peso
+        public decimal? Custo { get; set; }
+
     }
 }

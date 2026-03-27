@@ -1,21 +1,24 @@
 using Microsoft.EntityFrameworkCore;
-using MercadoSimples.Data;
+using Pomelo.EntityFrameworkCore.MySql;
+using MercadoSimples.Data; // Ajuste para o nome exato da sua pasta Data
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do Banco de Dados
+// 1. Pegar a String de Conexão do appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. Configurar o DbContext para usar o MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+// Adicionar serviços ao container (Controllers, Swagger, etc)
 builder.Services.AddControllers();
-
-// No .NET 10, o Swagger agora é configurado assim:
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Habilita o Swagger para você testar
+// Configurar o pipeline de requisições HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -23,13 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 app.MapControllers();
-app.Run();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization(); // Adicione esta linha por segurança
-
-app.MapControllers(); // ESSA LINHA É A QUE FAZ OS PRODUTOS APARECEREM
 
 app.Run();
