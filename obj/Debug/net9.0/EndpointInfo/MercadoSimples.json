@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Produtos": {
+    "/api/Produtos/Listas Produto": {
       "get": {
         "tags": [
           "Produtos"
@@ -43,7 +43,56 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Produtos/buscar": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Produto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Produto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Produto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Produtos/Cadastrar Produto": {
       "post": {
         "tags": [
           "Produtos"
@@ -91,7 +140,7 @@
         }
       }
     },
-    "/api/Produtos/{id}": {
+    "/api/Produtos/{id}/Apagar": {
       "delete": {
         "tags": [
           "Produtos"
@@ -112,7 +161,32 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Produtos/{id}/Desativar": {
+      "delete": {
+        "tags": [
+          "Produtos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Produtos/{id}": {
       "put": {
         "tags": [
           "Produtos"
@@ -157,28 +231,83 @@
   },
   "components": {
     "schemas": {
-      "Produto": {
+      "Estoque": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "nome": {
+          "produtoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nomeEstoque": {
             "type": "string",
             "nullable": true
+          },
+          "fornecedor": {
+            "type": "string",
+            "nullable": true
+          },
+          "categoria": {
+            "type": "string",
+            "nullable": true
+          },
+          "quantidade": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "peso": {
+            "type": "number",
+            "format": "double"
+          },
+          "custo": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Produto": {
+        "required": [
+          "nome"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "estoque": {
+            "$ref": "#/components/schemas/Estoque"
+          },
+          "nome": {
+            "maxLength": 100,
+            "minLength": 3,
+            "type": "string"
           },
           "descricao": {
             "type": "string",
             "nullable": true
           },
           "preco": {
+            "maximum": 999999,
+            "minimum": 0,01,
             "type": "number",
             "format": "double"
+          },
+          "valorEstoque": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
           },
           "validade": {
             "type": "string",
             "format": "date-time"
+          },
+          "ativo": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

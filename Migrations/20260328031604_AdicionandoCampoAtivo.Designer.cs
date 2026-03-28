@@ -4,6 +4,7 @@ using MercadoSimples.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MercadoSimples.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260328031604_AdicionandoCampoAtivo")]
+    partial class AdicionandoCampoAtivo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,8 +37,8 @@ namespace MercadoSimples.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("Custo")
-                        .HasColumnType("double");
+                    b.Property<decimal?>("Custo")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Fornecedor")
                         .IsRequired()
@@ -45,8 +48,8 @@ namespace MercadoSimples.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<double>("Peso")
-                        .HasColumnType("double");
+                    b.Property<decimal?>("Peso")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<int>("ProdutoId")
                         .HasColumnType("int");
@@ -82,8 +85,8 @@ namespace MercadoSimples.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<double>("Preco")
-                        .HasColumnType("double");
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("Validade")
                         .HasColumnType("datetime(6)");
