@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MercadoSimples")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78eba45dc54ad5e5e88d6b76ede010282b778d94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13712311724c512d2b5571ebf586d48d1be64438")]
 [assembly: System.Reflection.AssemblyProductAttribute("MercadoSimples")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MercadoSimples")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
